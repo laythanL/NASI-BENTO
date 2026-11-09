@@ -1,0 +1,132 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+   Design tokens Nasi Bento (Tailwind v4 @theme)
+   Palette "washi & shu": kertas matte, burgundy di-desaturasi, tinta sumi.
+---------------------------------------------------------------------------- */
+@theme {
+  --color-crimson: #a81c22;
+  --color-crimson-soft: #d98a86;
+  --color-maroon: #6e1216;
+  --color-cream: #f2ece0;
+  --color-cream-deep: #e8dfce;
+  --color-paper: #fbf8f2;
+  --color-wood: #6f6559;
+  --color-gold: #b08a3e;
+  --color-ink: #1b1813;
+  --color-sumi: #14110d;
+  --color-muted: #6f6559;
+
+  --font-sans: 'Plus Jakarta Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Playfair Display', 'Times New Roman', Georgia, serif;
+
+  /* Radius tajam: menghindari nuansa "kartu SaaS". */
+  --radius-card: 4px;
+  --radius-card-lg: 6px;
+
+  --animate-pulse-ring: pulse-ring 2.4s ease-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  70% {
+    transform: scale(1.18);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 74px;
+  }
+
+  body {
+    @apply bg-cream font-sans text-ink antialiased;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif font-bold leading-[1.14];
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    @apply bg-crimson text-white;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-3 outline-crimson;
+    border-radius: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Komponen dasar yang sering dipakai (dibangun dari utility Tailwind)
+---------------------------------------------------------------------------- */
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-[1200px] px-6;
+  }
+
+  .section-y {
+    @apply py-24 md:py-32;
+  }
+
+  .skip-link {
+    @apply sr-only;
+  }
+
+  .skip-link:focus {
+    @apply not-sr-only fixed top-4 left-4 z-[100] rounded-[3px] bg-ink px-4 py-2.5 text-sm font-semibold text-white;
+  }
+
+  .btn {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2.5 rounded-[3px] border-[1.5px] border-transparent px-7 py-3.5 text-[0.95rem] font-bold whitespace-nowrap transition-[transform,background-color,color,border-color,box-shadow] duration-200;
+  }
+
+  .btn svg {
+    @apply h-[18px] w-[18px];
+  }
+
+  .btn-primary {
+    @apply bg-crimson text-white hover:bg-maroon;
+  }
+
+  .btn-ghost {
+    @apply border-ink/25 text-ink hover:border-crimson hover:text-crimson;
+  }
+
+  .btn-light {
+    @apply bg-paper text-crimson hover:bg-white;
+  }
+
+  .btn-block {
+    @apply w-full;
+  }
+}
